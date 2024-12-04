@@ -14,11 +14,13 @@ public class Entity {
         this.sprite.setPosition(startX, startY);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
+        this.sprite.setSize(1,1);
     }
     //entity bewegen
     public void move() {
         float newX = sprite.getX() + velocityX;
         float newY = sprite.getY() + velocityY;
+        sprite.setPosition(newX, newY);
     }
     public Sprite getSprite() {
         return sprite;
