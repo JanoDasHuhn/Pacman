@@ -14,25 +14,27 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class Main extends ApplicationAdapter {
 
 
-     Texture backgroundTexture,walltexture;
+     Texture backgroundTexture,walltexture,entityTexture,wallTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
     int size = 25;
     private GridWorld gridWorld;
-
+    private Entity entity;
 
 
     @Override
     public void create() {
         walltexture = new Texture("wall.png");
         backgroundTexture = new Texture("background.png");
+       // entityTexture = new Texture("entity.png");
+        entityTexture = new Texture(Gdx.files.internal("entity.png"));
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(size, size);
 
          gridWorld = new GridWorld(walltexture);
         gridWorld.createGrid(size,size);
 
-
+        entity = new Entity(entityTexture, 5, 5, 0.1f, 0);  // Position (5, 5) und Geschwindigkeit (0.1, 0)
 
     }
 
@@ -46,7 +48,10 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-
+        wallTexture.dispose();
+        backgroundTexture.dispose();
+        entityTexture.dispose();
+        spriteBatch.dispose();
     }
     @Override
     public void resize(int width, int height) {
@@ -57,7 +62,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-
+        entity.move();
     }
 
     private void draw() {
@@ -71,6 +76,7 @@ public class Main extends ApplicationAdapter {
         for (Sprite wallSprite : gridWorld.getWallSprites()){
             wallSprite.draw(spriteBatch);
         }
+        entity.getSprite().draw(spriteBatch);
         spriteBatch.end();
 
     }
