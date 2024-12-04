@@ -22,8 +22,9 @@ public class GridWorld {
         grid[11][10] = 1;
         grid[10][12] = 1;
         grid[10][11] = 1;
-
-
+        grid[10][13] = 1;
+        grid[11][13] = 1;
+        grid[9][13] = 1;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 1) {
