@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GridWorld {
 
      Texture wallTexture;
-    private ArrayList<Sprite> wallSprites;
+    private final ArrayList<Sprite> wallSprites;
     public GridWorld(Texture wallTexture){
         this.wallTexture = wallTexture;
         wallSprites = new ArrayList<>();
