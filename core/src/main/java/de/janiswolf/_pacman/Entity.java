@@ -22,12 +22,20 @@ public class Entity {
         float newY = sprite.getY() + velocityY;
         sprite.setPosition(newX, newY);
     }
+    //Getter und Setter für Sprite, X und Y
     public Sprite getSprite() {
         return sprite;
     }
-    //geschwindigkeit
     public void setVelocityX(float velocityX) {
         this.velocityX = velocityX;
+    }
+    public void setVelocityY(float velocityY) {
         this.velocityY = velocityY;
+    }
+    public float getVelocityX() {
+        return velocityX;
+    }
+    public float getVelocityY() {
+        return velocityY;
     }
 }
