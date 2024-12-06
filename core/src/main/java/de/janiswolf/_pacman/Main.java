@@ -81,9 +81,9 @@ public class Main extends ApplicationAdapter {
 
     private void logic() {
         float nextX = entity.getSprite().getX() + entity.getVelocityX(); //berechnet nächste X Position des Spielers
-        float v = +entity.getVelocityX();
+        float v = entity.getVelocityX();
         float nextY = entity.getSprite().getY() + entity.getVelocityY(); //berechnet nächste Y Position des Spielers
-        float v1 =  +entity.getVelocityY();
+        float v1 =  entity.getVelocityY();
         //setzt Rect. vor dem Spieler
         Rectangle nextPlayerBounds = new Rectangle(nextX, nextY, entity.getSprite().getWidth(), entity.getSprite().getHeight());
         //checkt Kollision mit den Wänden
