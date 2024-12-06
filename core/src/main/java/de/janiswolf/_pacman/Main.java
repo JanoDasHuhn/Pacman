@@ -2,6 +2,7 @@ package de.janiswolf._pacman;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,9 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-
-
-     Texture backgroundTexture,walltexture,entityTexture,wallTexture;
+    Texture backgroundTexture,walltexture,entityTexture,wallTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
     int size = 25;
@@ -57,7 +56,25 @@ public class Main extends ApplicationAdapter {
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
+
     private void input() {
+        float velocity = 0.2f; //Geschwindigkeit des Chars
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) { //setzt X auf 0, Y auf 0.2
+            entity.setVelocityX(0);
+            entity.setVelocityY(velocity);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) { //setzt X auf 0, Y auf -0,2
+            entity.setVelocityX(0);
+            entity.setVelocityY(-velocity);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) { //setzt X auf -0.2, Y auf 0
+            entity.setVelocityX(-velocity);
+            entity.setVelocityY(0);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { //setzt X auf 0.2, Y auf 0
+            entity.setVelocityX(velocity);
+            entity.setVelocityY(0);
+        } else {    //Char bewegt sich nicht mehr, wenn nichts gedrückt wird
+            entity.setVelocityX(0);
+            entity.setVelocityY(0);
+        }
 
     }
 
