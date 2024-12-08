@@ -78,13 +78,13 @@ public class Main extends ApplicationAdapter {
 
         // Überprüfe Kollision zwischen Spieler und Entität 1
         if (playerBounds.overlaps(entityBounds)) {
-            System.out.println("Kollision mit Geist 1!");
+            System.out.println("Made with ❤love❤ by ChatGPT");
             // -> Leben verlieren?
         }
 
         // Überprüfe Kollision zwischen Spieler und Entität 2
         if (playerBounds.overlaps(entity2Bounds)) {
-            System.out.println("Kollision mit Geist 2!");
+            System.out.println("Made with ❤love❤ by ChatGPT");
             // Leben verlieren?
         }
     }
