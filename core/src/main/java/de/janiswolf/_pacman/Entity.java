@@ -17,7 +17,7 @@ public class Entity {
         this.sprite.setSize(1,1);
     }
     //entity bewegen
-    public void move() {
+    public static void move() {
         float newX = sprite.getX() + velocityX;
         float newY = sprite.getY() + velocityY;
         sprite.setPosition(newX, newY);
@@ -32,10 +32,10 @@ public class Entity {
     public void setVelocityY(float velocityY) {
         this.velocityY = velocityY;
     }
-    public static float getVelocityX() {
+    public float getVelocityX() {
         return velocityX;
     }
-    public static float getVelocityY() {
+    public float getVelocityY() {
         return velocityY;
     }
 }

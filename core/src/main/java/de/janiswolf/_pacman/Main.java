@@ -2,13 +2,10 @@ package de.janiswolf._pacman;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -42,7 +39,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-        Player.playerInput(0.2F);
+        player.playerInput();
         input();
         logic();
         draw();
@@ -65,7 +62,8 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-        entity.move();
+        Entity.move();
+        Entity.move();
     }
 
     private void draw() {
@@ -79,7 +77,9 @@ public class Main extends ApplicationAdapter {
         for (Sprite wallSprite : gridWorld.getWallSprites()){
             wallSprite.draw(spriteBatch);
         }
-        entity.getSprite().draw(spriteBatch);
+        Entity.getSprite().draw(spriteBatch);
+        spriteBatch.end();
+        Entity.getSprite().draw(spriteBatch); // Spieler zeichnen
         spriteBatch.end();
 
     }
