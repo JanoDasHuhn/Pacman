@@ -10,34 +10,34 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-
-
-     Texture backgroundTexture,walltexture,entityTexture,wallTexture;
+    Texture backgroundTexture, wallTexture, entityTexture, entity2Texture, playerTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
     int size = 25;
     private GridWorld gridWorld;
+    private Player player;
     private Entity entity;
-
+    private Entity2 entity2;
 
     @Override
     public void create() {
-        walltexture = new Texture("wall.png");
+        wallTexture = new Texture("wall.png");
         backgroundTexture = new Texture("background.png");
-       // entityTexture = new Texture("entity.png");
-        entityTexture = new Texture(Gdx.files.internal("entity.png"));
+        entityTexture = new Texture("entity.png");
+        entity2Texture = new Texture("entity2.png");
+        playerTexture = new Texture("player.png");
+
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(size, size);
 
-         gridWorld = new GridWorld(walltexture);
-        gridWorld.createGrid(size,size);
+        gridWorld = new GridWorld(wallTexture);
+        gridWorld.createGrid(size, size);
 
-        entity = new Entity(entityTexture, 5, 5, 0.1f, 0);  // Position (5, 5) und Geschwindigkeit (0.1, 0)
-
+        player = new Player(playerTexture, 5, 5);
+        entity = new Entity(entityTexture, 10, 10, 0.05f);
+        entity2 = new Entity2(entity2Texture, 15, 15, 0.05f);
     }
-
 
     @Override
     public void render() {
@@ -51,18 +51,24 @@ public class Main extends ApplicationAdapter {
         wallTexture.dispose();
         backgroundTexture.dispose();
         entityTexture.dispose();
+        entity2Texture.dispose();
+        playerTexture.dispose();
         spriteBatch.dispose();
     }
+
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
-    private void input() {
 
+    private void input() {
+        player.update(Gdx.graphics.getDeltaTime());
     }
 
     private void logic() {
-        entity.move();
+        entity.followPlayer(player);
+
+        entity2.interceptPlayer(player);
     }
 
     private void draw() {
@@ -70,14 +76,19 @@ public class Main extends ApplicationAdapter {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
+
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-        spriteBatch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight); //Background
-        for (Sprite wallSprite : gridWorld.getWallSprites()){
+
+        spriteBatch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight); // Hintergrund
+        for (Sprite wallSprite : gridWorld.getWallSprites()) {
             wallSprite.draw(spriteBatch);
         }
-        entity.getSprite().draw(spriteBatch);
-        spriteBatch.end();
 
+        player.getSprite().draw(spriteBatch);
+        entity.getSprite().draw(spriteBatch);
+        entity2.getSprite().draw(spriteBatch);
+
+        spriteBatch.end();
     }
 }
