@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
 public class Entity {
-    private Sprite sprite;
+    private static Sprite sprite;
     private float velocityX;
     private float velocityY;
 
@@ -23,7 +23,7 @@ public class Entity {
         sprite.setPosition(newX, newY);
     }
     //Getter und Setter für Sprite, X und Y
-    public Sprite getSprite() {
+    public static Sprite getSprite() {
         return sprite;
     }
     public void setVelocityX(float velocityX) {
@@ -32,10 +32,10 @@ public class Entity {
     public void setVelocityY(float velocityY) {
         this.velocityY = velocityY;
     }
-    public float getVelocityX() {
+    public static float getVelocityX() {
         return velocityX;
     }
-    public float getVelocityY() {
+    public static float getVelocityY() {
         return velocityY;
     }
 }

@@ -20,6 +20,7 @@ public class Main extends ApplicationAdapter {
     int size = 25;
     private GridWorld gridWorld;
     private Entity entity;
+    private Player player;
 
 
     @Override
@@ -35,12 +36,13 @@ public class Main extends ApplicationAdapter {
         gridWorld.createGrid(size,size);
 
         entity = new Entity(entityTexture, 5, 5, 0.1f, 0);  // Position (5, 5) und Geschwindigkeit (0.1, 0)
-
+        player = new Player(playerTexture, 7, 8);
     }
 
 
     @Override
     public void render() {
+        Player.playerInput(0.2F);
         input();
         logic();
         draw();
@@ -51,6 +53,7 @@ public class Main extends ApplicationAdapter {
         wallTexture.dispose();
         backgroundTexture.dispose();
         entityTexture.dispose();
+        playerTexture.dispose();
         spriteBatch.dispose();
     }
     @Override
@@ -59,42 +62,9 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-        float velocity = 0.2f; //Geschwindigkeit des Chars
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) { //setzt X auf 0, Y auf 0.2
-            entity.setVelocityX(0);
-            entity.setVelocityY(velocity);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) { //setzt X auf 0, Y auf -0,2
-            entity.setVelocityX(0);
-            entity.setVelocityY(-velocity);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) { //setzt X auf -0.2, Y auf 0
-            entity.setVelocityX(-velocity);
-            entity.setVelocityY(0);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { //setzt X auf 0.2, Y auf 0
-            entity.setVelocityX(velocity);
-            entity.setVelocityY(0);
-        } else {    //Char bewegt sich nicht mehr, wenn nichts gedrückt wird
-            entity.setVelocityX(0);
-            entity.setVelocityY(0);
-        }
-
     }
 
     private void logic() {
-        float nextX = entity.getSprite().getX() + entity.getVelocityX(); //berechnet nächste X Position des Spielers
-        float v = entity.getVelocityX();
-        float nextY = entity.getSprite().getY() + entity.getVelocityY(); //berechnet nächste Y Position des Spielers
-        float v1 =  entity.getVelocityY();
-        //setzt Rect. vor dem Spieler
-        Rectangle nextPlayerBounds = new Rectangle(nextX, nextY, entity.getSprite().getWidth(), entity.getSprite().getHeight());
-        //checkt Kollision mit den Wänden
-        for ( Sprite wall : gridWorld.getWallSprites()){
-            if(nextPlayerBounds.overlaps(wall.getBoundingRectangle())){ //stoppt den Spieler, wenn er eine Wand berührt
-                entity.setVelocityX(0);
-                entity.setVelocityY(0);
-                return;
-            }
-        }
-        //wenn keine Kollision, bewegt sich der Spieler
         entity.move();
     }
 
