@@ -12,12 +12,14 @@ public class Player {
     private Vector2 position;
     private Vector2 velocity;
     private float speed;
+    private int lives;
 
     public Player(Texture texture, float x, float y) {
         this.sprite = new Sprite(texture);
         this.position = new Vector2(x, y);
         this.velocity = new Vector2(0, 0);
         this.speed = 10f;
+        this.lives = 2;
         this.sprite.setSize(2,2);    }
 
     public void update(float deltaTime) {
@@ -50,5 +52,18 @@ public class Player {
 
     public Rectangle getBoundingRectangle() {
         return sprite.getBoundingRectangle();
+    }
+
+    public int getLives() {
+        return lives;
+    }
+    public void lebenVerloren() {
+        if(lives>0){
+            lives--;
+        }
+    }
+
+    public boolean istTot(){
+        return lives==0;
     }
 }

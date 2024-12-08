@@ -78,14 +78,25 @@ public class Main extends ApplicationAdapter {
 
         // Überprüfe Kollision zwischen Spieler und Entität 1
         if (playerBounds.overlaps(entityBounds)) {
-            System.out.println("Made with ❤love❤ by ChatGPT");
-            // -> Leben verlieren?
+            if(!player.istTot()) {
+                player.lebenVerloren();
+                System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
+                player.getSprite().setPosition(5,5);
+                if(player.istTot()){
+                    System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
+                }
+            }
         }
 
         // Überprüfe Kollision zwischen Spieler und Entität 2
         if (playerBounds.overlaps(entity2Bounds)) {
-            System.out.println("Made with ❤love❤ by ChatGPT");
-            // Leben verlieren?
+            if(!player.istTot()){
+                player.lebenVerloren();
+                System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
+                player.getSprite().setPosition(5,5);
+                if(player.istTot()){
+                    System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");}
+            }
         }
     }
 
