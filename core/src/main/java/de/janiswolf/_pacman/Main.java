@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -69,6 +70,23 @@ public class Main extends ApplicationAdapter {
         entity.followPlayer(player);
 
         entity2.interceptPlayer(player);
+
+        // Bounding-Rectangles für Spieler und Entitäten abrufen
+        Rectangle playerBounds = player.getSprite().getBoundingRectangle();
+        Rectangle entityBounds = entity.getSprite().getBoundingRectangle();
+        Rectangle entity2Bounds = entity2.getSprite().getBoundingRectangle();
+
+        // Überprüfe Kollision zwischen Spieler und Entität 1
+        if (playerBounds.overlaps(entityBounds)) {
+            System.out.println("Kollision mit Geist 1!");
+            // -> Leben verlieren?
+        }
+
+        // Überprüfe Kollision zwischen Spieler und Entität 2
+        if (playerBounds.overlaps(entity2Bounds)) {
+            System.out.println("Kollision mit Geist 2!");
+            // Leben verlieren?
+        }
     }
 
     private void draw() {
