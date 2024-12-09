@@ -84,6 +84,7 @@ public class Main extends ApplicationAdapter {
                 player.getSprite().setPosition(5,5);
                 if(player.istTot()){
                     System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
+                    Gdx.app.exit();
                 }
             }
         }
@@ -95,7 +96,9 @@ public class Main extends ApplicationAdapter {
                 System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
                 player.getSprite().setPosition(5,5);
                 if(player.istTot()){
-                    System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");}
+                    System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
+                Gdx.app.exit();
+                }
             }
         }
     }
