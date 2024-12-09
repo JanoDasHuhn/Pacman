@@ -7,21 +7,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {
-    private Sprite sprite;
-    private Vector2 position;
-    private Vector2 velocity;
-    private float speed;
-    private int lives;
+public class Player extends Entity {
 
-    public Player(Texture texture, float x, float y) {
-        this.sprite = new Sprite(texture);
-        this.position = new Vector2(x, y);
+
+
+    public Player(Texture texture, float startX, float startY,float speed,int health) {
+        super(texture,startX,startY,speed,health);
+
         this.velocity = new Vector2(0, 0);
         this.speed = 10f;
-        this.lives = 2;
+
         this.sprite.setSize(2,2);    }
 
+    @Override
     public void update(float deltaTime) {
         velocity.set(0, 0);
 
@@ -42,28 +40,20 @@ public class Player {
         sprite.setPosition(position.x, position.y);
     }
 
-    public Sprite getSprite() {
-        return sprite;
-    }
 
-    public Vector2 getPosition() {
-        return position;
-    }
 
-    public Rectangle getBoundingRectangle() {
-        return sprite.getBoundingRectangle();
-    }
 
-    public int getLives() {
-        return lives;
-    }
+
+
+
+
     public void lebenVerloren() {
-        if(lives>0){
-            lives--;
+        if(health>0){
+            health--;
         }
     }
 
     public boolean istTot(){
-        return lives==0;
+        return health==0;
     }
 }
