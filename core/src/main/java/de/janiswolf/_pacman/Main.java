@@ -89,9 +89,10 @@ public class Main extends ApplicationAdapter {
             if(!(entity instanceof Player)){
                 entityBounds.add(entity.getSprite().getBoundingRectangle());
                 entity.update(0);
+            }else {
+                playerBounds = entity.getSprite().getBoundingRectangle();
+                player = (Player) entity;
             }
-            playerBounds = entity.getSprite().getBoundingRectangle();
-            player = (Player) entity;
         }
 
 
