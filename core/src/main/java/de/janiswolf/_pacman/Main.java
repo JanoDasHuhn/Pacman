@@ -78,46 +78,41 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-        for(Entity entity : entities){
-            if(entity instanceof Ghost){
-                entity.update(0);
-
-            }
-        }
 
 
-        /*
+
         // Bounding-Rectangles für Spieler und Entitäten abrufen
-        Rectangle playerBounds = player.getSprite().getBoundingRectangle();
-        Rectangle entityBounds = ghost.getSprite().getBoundingRectangle();
-        Rectangle entity2Bounds = ghost2.getSprite().getBoundingRectangle();
+        Player player = null;
+        Rectangle playerBounds = null;
+        ArrayList<Rectangle> entityBounds = new ArrayList<>();
+        for(Entity entity : entities ){
+            if(!(entity instanceof Player)){
+                entityBounds.add(entity.getSprite().getBoundingRectangle());
+                entity.update(0);
+            }
+            playerBounds = entity.getSprite().getBoundingRectangle();
+            player = (Player) entity;
+        }
 
-        // Überprüfe Kollision zwischen Spieler und Entität 1
-        if (playerBounds.overlaps(entityBounds)) {
-            if(!player.istTot()) {
-                player.lebenVerloren();
-                System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
-                player.getSprite().setPosition(5,5);
-                if(player.istTot()){
-                    System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
-                    Gdx.app.exit();
+
+        // Überprüfe Kollision zwischen Spieler und Entität
+        for(Rectangle rectangle : entityBounds){
+            if (playerBounds.overlaps(rectangle)) {
+                if(!player.istTot()) {
+                    player.lebenVerloren();
+                    System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
+                    player.getSprite().setPosition(5,5);
+                    if(player.istTot()){
+                        System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
+                        Gdx.app.exit();
+                    }
                 }
             }
         }
 
-        // Überprüfe Kollision zwischen Spieler und Entität 2
-        if (playerBounds.overlaps(entity2Bounds)) {
-            if(!player.istTot()){
-                player.lebenVerloren();
-                System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
-                player.getSprite().setPosition(5,5);
-                if(player.istTot()){
-                    System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
-                Gdx.app.exit();
-                }
-            }
-        }
-        */
+
+
+
 
     }
 
