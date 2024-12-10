@@ -43,9 +43,7 @@ public class Main extends ApplicationAdapter {
          entitySpawner.create(EntityType.NO_COLLISION_GHOST);
          entitySpawner.create(EntityType.GHOST_INTERCEPTOR);
 
-         for (Entity entity : entitySpawner.getEntities()){
-             System.out.println("Position: " + entity.getPosition().x + " | " + entity.getPosition().y);
-         }
+
 
     }
 
