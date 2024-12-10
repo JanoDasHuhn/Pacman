@@ -16,7 +16,7 @@ import de.janiswolf._pacman.entities.*;
 import java.util.ArrayList;
 
 public class Main extends ApplicationAdapter {
-    Texture backgroundTexture, wallTexture, entityTexture, entity2Texture, playerTexture;
+    Texture backgroundTexture, entityTexture, entity2Texture, playerTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
     int worldSize = 100;
@@ -27,12 +27,12 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        wallTexture = new Texture("wall.png");
+
         backgroundTexture = new Texture("background.png");
 
 
         spriteBatch = new SpriteBatch();
-        gridWorld = new GridWorld(wallTexture,worldSize);
+        gridWorld = new GridWorld(worldSize);
         gridWorld.createGrid(worldSize, worldSize);
         entitySpawner = new EntitySpawner(gridWorld,this,1,0.2f);
         entitySpawner.create(EntityType.PLAYER);
@@ -62,10 +62,11 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        wallTexture.dispose();
+
         backgroundTexture.dispose();
         entityTexture.dispose();
         entity2Texture.dispose();
+
         playerTexture.dispose();
         spriteBatch.dispose();
     }

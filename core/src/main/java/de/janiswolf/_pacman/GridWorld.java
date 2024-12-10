@@ -8,13 +8,20 @@ import java.util.Random;
 
 public class GridWorld {
 
-     Texture wallTexture;
+     ArrayList<Texture> wallTextures;
      private int worldSize;
     private final ArrayList<Sprite> wallSprites;
-    public GridWorld(Texture wallTexture, int worldSize){
-        this.wallTexture = wallTexture;
+    public GridWorld( int worldSize){
+
         wallSprites = new ArrayList<>();
         this.worldSize = worldSize;
+        wallTextures = new ArrayList<>();
+        wallTextures.add(new Texture("wall.png"));
+        wallTextures.add(new Texture("wall1.png"));
+        wallTextures.add(new Texture("wall2.png"));
+        wallTextures.add(new Texture("wall3.png"));
+        wallTextures.add(new Texture("wall4.png"));
+        wallTextures.add(new Texture("wall5.png"));
     }
     public  void  createGrid(int x, int y) {
 
@@ -34,7 +41,7 @@ public class GridWorld {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 1) {
-                    Sprite wallSprite = new Sprite(wallTexture);
+                    Sprite wallSprite = new Sprite(wallTextures.get(random.nextInt(wallTextures.size())));
                     wallSprite.setPosition(i,j);
                     wallSprite.setSize(1,1);
 
