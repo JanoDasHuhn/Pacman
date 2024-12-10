@@ -10,9 +10,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import de.janiswolf._pacman.entities.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends ApplicationAdapter {
     Texture backgroundTexture, wallTexture, entityTexture, entity2Texture, playerTexture;
@@ -20,30 +20,33 @@ public class Main extends ApplicationAdapter {
     FitViewport viewport;
     int size = 25;
     private GridWorld gridWorld;
-
-    private ArrayList<Entity> entities;
-
+    private Player player;
+    private EntitySpawner entitySpawner;
 
     @Override
     public void create() {
         wallTexture = new Texture("wall.png");
         backgroundTexture = new Texture("background.png");
-        entityTexture = new Texture("entity.png");
-        entity2Texture = new Texture("entity2.png");
-        playerTexture = new Texture("player.png");
+
 
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(size, size);
 
         gridWorld = new GridWorld(wallTexture);
         gridWorld.createGrid(size, size);
-        entities = new ArrayList<>();
-        Player player = new Player(playerTexture, 5, 5,0.08f,3);
-        Ghost ghost = new Ghost(entityTexture, 10, 10, 0.02f,1,player,false);
-       Ghost ghost2= new Ghost(entity2Texture, 15, 15, 0.02f,1,player,true);
-       entities.add(player);
-       entities.add(ghost);
-       entities.add(ghost2);
+
+
+         entitySpawner = new EntitySpawner(gridWorld,this,1,0.2f);
+         entitySpawner.create(EntityType.PLAYER);
+         entitySpawner.create(EntityType.GHOST);
+         entitySpawner.create(EntityType.SPEED_GHOST);
+         entitySpawner.create(EntityType.NO_COLLISION_GHOST);
+         entitySpawner.create(EntityType.GHOST_INTERCEPTOR);
+
+         for (Entity entity : entitySpawner.getEntities()){
+             System.out.println("Position: " + entity.getPosition().x + " | " + entity.getPosition().y);
+         }
+
     }
 
     @Override
@@ -69,7 +72,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
-        for(Entity entity : entities){
+        for(Entity entity : entitySpawner.getEntities()){
             if(entity instanceof Player){
                 Player player = (Player)entity;
                 player.update(Gdx.graphics.getDeltaTime());
@@ -86,7 +89,7 @@ public class Main extends ApplicationAdapter {
         Player player = null;
         Rectangle playerBounds = null;
         ArrayList<Rectangle> entityBounds = new ArrayList<>();
-        for(Entity entity : entities ){
+        for(Entity entity : entitySpawner.getEntities() ){
             if(!(entity instanceof Player)){
                 entityBounds.add(entity.getSprite().getBoundingRectangle());
                 entity.update(0);
@@ -105,7 +108,7 @@ public class Main extends ApplicationAdapter {
                     player.lebenVerloren();
                     System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
 
-                    for (Entity entity : entities){
+                    for (Entity entity : entitySpawner.getEntities()){
                         entity.setPosition(new Vector2(entity.getStartX(),entity.getStartY()));
                     }
                     if(player.istTot()){
@@ -135,11 +138,19 @@ public class Main extends ApplicationAdapter {
         for (Sprite wallSprite : gridWorld.getWallSprites()) {
             wallSprite.draw(spriteBatch);
         }
-        for (Entity entity : entities){
+        for (Entity entity : entitySpawner.getEntities()){
             entity.getSprite().draw(spriteBatch);
         }
 
 
         spriteBatch.end();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
