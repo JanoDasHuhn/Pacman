@@ -17,11 +17,7 @@ public class GridWorld {
         this.worldSize = worldSize;
         wallTextures = new ArrayList<>();
         wallTextures.add(new Texture("wall.png"));
-        wallTextures.add(new Texture("wall1.png"));
-        wallTextures.add(new Texture("wall2.png"));
-        wallTextures.add(new Texture("wall3.png"));
-        wallTextures.add(new Texture("wall4.png"));
-        wallTextures.add(new Texture("wall5.png"));
+
     }
     public  void  createGrid(int x, int y) {
 
