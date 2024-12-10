@@ -3,6 +3,7 @@ package de.janiswolf._pacman;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,10 +19,11 @@ public class Main extends ApplicationAdapter {
     Texture backgroundTexture, wallTexture, entityTexture, entity2Texture, playerTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
-    int size = 25;
+    int worldSize = 100;
     private GridWorld gridWorld;
     private Player player;
     private EntitySpawner entitySpawner;
+    OrthographicCamera camera;
 
     @Override
     public void create() {
@@ -30,18 +32,22 @@ public class Main extends ApplicationAdapter {
 
 
         spriteBatch = new SpriteBatch();
-        viewport = new FitViewport(size, size);
+        gridWorld = new GridWorld(wallTexture,worldSize);
+        gridWorld.createGrid(worldSize, worldSize);
+        entitySpawner = new EntitySpawner(gridWorld,this,1,0.2f);
+        entitySpawner.create(EntityType.PLAYER);
+        entitySpawner.create(EntityType.GHOST);
+        entitySpawner.create(EntityType.SPEED_GHOST);
+        entitySpawner.create(EntityType.NO_COLLISION_GHOST);
+        entitySpawner.create(EntityType.GHOST_INTERCEPTOR);
 
-        gridWorld = new GridWorld(wallTexture);
-        gridWorld.createGrid(size, size);
+        camera = new OrthographicCamera(player.getPosition().x,player.getPosition().y);
+        viewport = new FitViewport(25, 25,camera);
 
 
-         entitySpawner = new EntitySpawner(gridWorld,this,1,0.2f);
-         entitySpawner.create(EntityType.PLAYER);
-         entitySpawner.create(EntityType.GHOST);
-         entitySpawner.create(EntityType.SPEED_GHOST);
-         entitySpawner.create(EntityType.NO_COLLISION_GHOST);
-         entitySpawner.create(EntityType.GHOST_INTERCEPTOR);
+
+
+
 
 
 
@@ -128,11 +134,11 @@ public class Main extends ApplicationAdapter {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
+        camera.position.set(player.getPosition().x,player.getPosition().y,0);
+        camera.update();
 
-        float worldWidth = viewport.getWorldWidth();
-        float worldHeight = viewport.getWorldHeight();
 
-        spriteBatch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight); // Hintergrund
+        spriteBatch.draw(backgroundTexture, 0, 0, worldSize, worldSize);
         for (Sprite wallSprite : gridWorld.getWallSprites()) {
             wallSprite.draw(spriteBatch);
         }
@@ -140,7 +146,7 @@ public class Main extends ApplicationAdapter {
             entity.getSprite().draw(spriteBatch);
         }
 
-
+        spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.end();
     }
 
