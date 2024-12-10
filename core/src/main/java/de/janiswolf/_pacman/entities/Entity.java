@@ -61,24 +61,28 @@ public abstract class Entity {
      */
     boolean checkCollision() {
         for (Sprite walls : gridWorld.getWallSprites()) {
+
             Rectangle wallRect = new Rectangle(walls.getX(), walls.getY(), walls.getWidth() - 0.2f, walls.getHeight() - 0.2f);
 
-            if (new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight()).overlaps(wallRect)) {
+            if (!(this instanceof Player) && (new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight()).overlaps(wallRect))) {
                 // Zur vorherigen Position zurücksetzen
                 position.x = prevX;
                 position.y = prevY;
                 sprite.setPosition(prevX, prevY);
 
-                // Pushback nur für Ghost
-                if (this instanceof Ghost) {
+
                     Vector2 pushBack = position.cpy()
                         .sub(walls.getX() + walls.getWidth() / 2, walls.getY() + walls.getHeight() / 2)
                         .nor();
                     position.add(pushBack.scl(0.1f)); // Rückstoßstärke skalieren
                     sprite.setPosition(position.x, position.y);
-                }
+
 
                 return false;
+            }else if(new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight()).overlaps(new Rectangle(walls.getX(), wallRect.y, walls.getWidth() * 0.5f,walls.getHeight() * 0.5f))) {
+                position.x = prevX;
+                position.y = prevY;
+                sprite.setPosition(prevX, prevY);
             }
         }
         return true;
