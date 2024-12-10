@@ -11,15 +11,17 @@ public abstract class Entity {
     protected Vector2 velocity;
     protected float speed;
     protected int health;
-
+    protected float startX,startY;
     public Entity(Texture texture, float startX, float startY, float speed,int health) {
         this.sprite = new Sprite(texture);
         this.position = new Vector2(startX, startY);
         this.velocity = new Vector2(0, 0);
         this.speed = speed;
         this.sprite.setPosition(startX, startY);
-        this.sprite.setSize(2,2);
+        this.sprite.setSize(1,1);
         this.health = health;
+        this.startX = startX;
+        this.startY = startY;
     }
     public abstract void update(float deltaTime);
 
@@ -35,5 +37,17 @@ public abstract class Entity {
 
     public Rectangle getBoundingRectangle() {
         return sprite.getBoundingRectangle();
+    }
+
+    public float getStartX() {
+        return startX;
+    }
+
+    public float getStartY() {
+        return startY;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 }

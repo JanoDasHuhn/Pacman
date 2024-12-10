@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -37,9 +38,9 @@ public class Main extends ApplicationAdapter {
         gridWorld = new GridWorld(wallTexture);
         gridWorld.createGrid(size, size);
         entities = new ArrayList<>();
-        Player player = new Player(playerTexture, 5, 5,0.05f,2);
-        Ghost ghost = new Ghost(entityTexture, 10, 10, 0.05f,1,player,false);
-       Ghost ghost2= new Ghost(entity2Texture, 15, 15, 0.05f,1,player,true);
+        Player player = new Player(playerTexture, 5, 5,0.08f,3);
+        Ghost ghost = new Ghost(entityTexture, 10, 10, 0.02f,1,player,false);
+       Ghost ghost2= new Ghost(entity2Texture, 15, 15, 0.02f,1,player,true);
        entities.add(player);
        entities.add(ghost);
        entities.add(ghost2);
@@ -98,11 +99,15 @@ public class Main extends ApplicationAdapter {
 
         // Überprüfe Kollision zwischen Spieler und Entität
         for(Rectangle rectangle : entityBounds){
-            if (playerBounds.overlaps(rectangle)) {
+
+            if (playerBounds.overlaps(rectangle.set(rectangle.x, rectangle.y, 0.5f, 0.5f))) {
                 if(!player.istTot()) {
                     player.lebenVerloren();
                     System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
-                    player.getSprite().setPosition(5,5);
+
+                    for (Entity entity : entities){
+                        entity.setPosition(new Vector2(entity.getStartX(),entity.getStartY()));
+                    }
                     if(player.istTot()){
                         System.out.println("Verloren! Kein Leben mehr übrig. LOSER!");
                         Gdx.app.exit();
