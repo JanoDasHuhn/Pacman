@@ -14,6 +14,7 @@ public abstract class Entity {
     protected int health;
     protected float startX, startY, prevX, prevY;
     protected GridWorld gridWorld;
+    protected boolean applyPushback; // New flag for pushback behavior
 
     public Entity(Texture texture, float startX, float startY, float speed, int health, GridWorld gridWorld) {
         this.sprite = new Sprite(texture);
@@ -28,6 +29,7 @@ public abstract class Entity {
         this.prevX = startX;
         this.prevY = startY;
         this.gridWorld = gridWorld;
+        this.applyPushback = false; // Default to no pushback
     }
 
     public abstract void update(float deltaTime);
@@ -58,7 +60,7 @@ public abstract class Entity {
 
     boolean checkCollision() {
         for (Sprite walls : gridWorld.getWallSprites()) {
-            Rectangle wallRect = new Rectangle(walls.getX(), walls.getY(), walls.getWidth() - 0.5f, walls.getHeight() - 0.2f);
+            Rectangle wallRect = new Rectangle(walls.getX(), walls.getY(), walls.getWidth() - 0.2f, walls.getHeight() - 0.2f);
 
             if (new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight())
                 .overlaps(wallRect)) {
@@ -67,9 +69,12 @@ public abstract class Entity {
                 position.y = prevY;
                 sprite.setPosition(prevX, prevY);
 
-                Vector2 pushBack = position.cpy().sub(walls.getX() + walls.getWidth() / 2, walls.getY() + walls.getHeight() / 2).nor();
-                position.add(pushBack.scl(0.1f));
-                sprite.setPosition(position.x, position.y);
+                if (applyPushback) {
+                    Vector2 pushBack = position.cpy()
+                        .sub(walls.getX() + walls.getWidth() / 2, walls.getY() + walls.getHeight() / 2).nor();
+                    position.add(pushBack.scl(0.1f));
+                    sprite.setPosition(position.x, position.y);
+                }
 
                 return false;
             }

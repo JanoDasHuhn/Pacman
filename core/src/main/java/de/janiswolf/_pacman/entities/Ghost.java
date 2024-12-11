@@ -11,29 +11,24 @@ import java.util.Random;
 public class Ghost extends Entity {
 
     private Player player;
-    private boolean isInterceptor,isCollider;
-    public Ghost(Texture texture, float startX, float startY, float speed, int health, Player player, boolean isInterceptor, GridWorld gridWorld, boolean checkCollision) {
-        super(texture,startX,startY,speed,health,gridWorld);
+    private boolean isInterceptor, isCollider;
 
-        this.position = new Vector2(startX, startY);
-        this.velocity = new Vector2(0, 0);
-        this.speed = speed;
-        this.sprite.setPosition(startX, startY);
-        this.sprite.setSize(1,1);
+    public Ghost(Texture texture, float startX, float startY, float speed, int health, Player player, boolean isInterceptor, GridWorld gridWorld, boolean checkCollision) {
+        super(texture, startX, startY, speed, health, gridWorld);
         this.player = player;
         this.isInterceptor = isInterceptor;
         this.isCollider = checkCollision;
+        this.applyPushback = true; // Pushback enabled for ghosts
     }
 
     @Override
     public void update(float deltaTime) {
         prevX = sprite.getX();
         prevY = sprite.getY();
-        if(!isInterceptor){
+        if (!isInterceptor) {
             followPlayer(player);
         }
         interceptPlayer();
-
     }
 
     private void followPlayer(Player player) {
@@ -42,52 +37,32 @@ public class Ghost extends Entity {
         velocity.set(direction).scl(speed);
 
         position.add(velocity);
-        if(isCollider){
-            if (checkCollision() ){
+        if (isCollider) {
+            if (checkCollision()) {
                 sprite.setPosition(position.x, position.y);
-
             }
-        }else {
+        } else {
             sprite.setPosition(position.x, position.y);
         }
-
-
     }
-
-    public Sprite getSprite() {
-        return sprite;
-    }
-
 
     public void interceptPlayer() {
         Vector2 playerPosition = player.getPosition();
-
         Vector2 directionToPlayer = playerPosition.cpy().sub(position).nor();
         Random random = new Random();
-        Vector2 blockPosition = playerPosition.cpy().add(directionToPlayer.scl(random.nextInt(5)));  // Blockiere 2 Schritte vor dem Spieler
+        Vector2 blockPosition = playerPosition.cpy().add(directionToPlayer.scl(random.nextInt(5))); // Block 2 steps ahead
 
         Vector2 interceptDirection = blockPosition.cpy().sub(position).nor();
-
         velocity.set(interceptDirection).scl(speed);
 
         position.add(velocity);
-        if(isCollider){
-            if (checkCollision() ){
+        if (isCollider) {
+            if (checkCollision()) {
                 sprite.setPosition(position.x, position.y);
-
             }
-        }else {
+        } else {
             sprite.setPosition(position.x, position.y);
         }
-
     }
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public Rectangle getBoundingRectangle() {
-        return sprite.getBoundingRectangle();
-    }
-
-
 }
+
