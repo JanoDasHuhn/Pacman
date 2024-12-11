@@ -13,7 +13,7 @@ public class Player extends Entity {
         this.velocity = new Vector2(0, 0);
         this.speed = 10f;
         this.sprite.setSize(1, 1);
-        this.applyPushback = false;
+        this.applyPushback = true;
     }
 
     @Override
