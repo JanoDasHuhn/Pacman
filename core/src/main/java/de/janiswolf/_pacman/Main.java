@@ -64,8 +64,7 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
 
         backgroundTexture.dispose();
-        entityTexture.dispose();
-        entity2Texture.dispose();
+
 
         playerTexture.dispose();
         spriteBatch.dispose();
