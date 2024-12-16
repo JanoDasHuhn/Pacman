@@ -1,3 +1,3 @@
-#Pacman
+# Pacman
 
 Als Erstsemesterkurs der Wirtschaftsinformatik beschäftigen wir uns im Rahmen des Projektstudiums mit Simulationsumgebungen und -visualisierung. Dabei wollen wir uns damit beschäftigen, welche Arten von Simulationsumgebungen es gibt und durch welche Eigenschaften sie sich klassifizieren lassen. Des Weiteren wollen wir den Entwicklungsprozess einer Simulationsumgebung in der Programmiersprache Java beleuchten. Anhand einer interaktiven Spielumgebung im Rahmen des Praxis Teils verdeutlichen wir, wie der Nutzer Entitäten steuern kann, das Verhalten und Eigenschaften von Entitäten in solchen Umgebungen und wie sie sich durch das Framework libGDX in 2D darstellen lassen.
