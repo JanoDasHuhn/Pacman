@@ -73,13 +73,13 @@ public class EntitySpawner {
 
         switch (entityType) {
             case PLAYER:
-                Player player1 = new Player(playerTexture, startX, startY, 0.08f, 3, gridWorld);
+                Player player1 = new Player(playerTexture, startX, startY, 0.06f, 3, gridWorld);
                 main.setPlayer(player1);
                 entities.add(player1);
                 return player1;
 
             case SPEED_GHOST:
-                speed = 1.7f;
+                speed = 2.0f;
                 texture = entity4Texture;
                 break;
 
@@ -97,7 +97,7 @@ public class EntitySpawner {
                 break;
         }
 
-        Ghost ghost = new Ghost(texture, startX, startY, 0.02f, 1, main.getPlayer(), isInterceptor, gridWorld, isCollider);
+        Ghost ghost = new Ghost(texture, startX, startY, 0.05f, 1, main.getPlayer(), isInterceptor, gridWorld, isCollider);
         entities.add(ghost);
         return ghost;
     }
