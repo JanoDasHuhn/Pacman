@@ -17,10 +17,10 @@ public class EntitySpawner {
     private GridWorld gridWorld;
 
     public EntitySpawner(GridWorld gridWorld, Main main, int size, float speed) {
-        entityTexture = new Texture("entity1.png");
-        entity2Texture = new Texture("entity2.png");
-        entity3Texture = new Texture("entity3.png");
-        entity4Texture = new Texture("entity4.png");
+        entityTexture = new Texture("geist1.png");
+        entity2Texture = new Texture("hund2.png");
+        entity3Texture = new Texture("hund3.png");
+        entity4Texture = new Texture("hund4.png");
         playerTexture = new Texture("Katze.png");
 
         this.gridWorld = gridWorld;
