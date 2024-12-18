@@ -32,6 +32,7 @@ public class GridWorld {
 
             grid[random.nextInt(worldSize)][random.nextInt(6,worldSize)] = 1;
         }
+        // Es wird mithilfe einer Forschleife so lange iteriert bis die Anzahl der Itierationen ein Zehntel der Weltgröße erreichen, dann wird jeweils auf einer Zufä
         for (int i = 0; i < worldSize;i++){
             grid[i][0] = 1;
             grid[i][worldSize -1] = 1;

@@ -60,7 +60,7 @@ public abstract class Entity {
 
     boolean checkCollision() {
         for (Sprite walls : gridWorld.getWallSprites()) {
-            Rectangle wallRect = new Rectangle(walls.getX(), walls.getY(), walls.getWidth() - 0.1f, walls.getHeight() - 0.1f);
+            Rectangle wallRect = new Rectangle(walls.getX(), walls.getY(), walls.getWidth() * 0.99f, walls.getHeight() * 0.99f);
 
             if (new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight())
                 .overlaps(wallRect)) {

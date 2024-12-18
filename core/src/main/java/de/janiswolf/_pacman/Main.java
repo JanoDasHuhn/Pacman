@@ -96,7 +96,8 @@ public class Main extends ApplicationAdapter {
         for(Entity entity : entitySpawner.getEntities() ){
             if(!(entity instanceof Player)){
                 entityBounds.add(entity.getSprite().getBoundingRectangle());
-                entity.update(0);
+               Ghost ghost = (Ghost) entity;
+               ghost.update();
             }else {
                 playerBounds = entity.getSprite().getBoundingRectangle();
                 player = (Player) entity;
@@ -110,7 +111,7 @@ public class Main extends ApplicationAdapter {
             if (playerBounds.overlaps(rectangle.set(rectangle.x, rectangle.y, 0.5f, 0.5f))) {
                 if(!player.istTot()) {
                     player.lebenVerloren();
-                    System.out.println("Leben verloren! Ein Leben verbleibend! (Made with ❤love❤ by ChatGPT)");
+                    System.out.println("Leben verloren! Ein Leben verbleibend!");
 
                     for (Entity entity : entitySpawner.getEntities()){
                         entity.setPosition(new Vector2(entity.getStartX(),entity.getStartY()));

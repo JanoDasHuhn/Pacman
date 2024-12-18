@@ -21,7 +21,7 @@ public class EntitySpawner {
         entity2Texture = new Texture("entity2.png");
         entity3Texture = new Texture("entity3.png");
         entity4Texture = new Texture("entity4.png");
-        playerTexture = new Texture("player.png");
+        playerTexture = new Texture("Katze.png");
 
         this.gridWorld = gridWorld;
 

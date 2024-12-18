@@ -23,10 +23,14 @@ public class Ghost extends Entity {
 
     @Override
     public void update(float deltaTime) {
+        update();
+    }
+    public void update(){
         prevX = sprite.getX();
         prevY = sprite.getY();
         if (!isInterceptor) {
             followPlayer(player);
+            return;
         }
         interceptPlayer();
     }
@@ -49,8 +53,8 @@ public class Ghost extends Entity {
     public void interceptPlayer() {
         Vector2 playerPosition = player.getPosition();
         Vector2 directionToPlayer = playerPosition.cpy().sub(position).nor();
-        Random random = new Random();
-        Vector2 blockPosition = playerPosition.cpy().add(directionToPlayer.scl(random.nextInt(5))); // Block 2 steps ahead
+
+        Vector2 blockPosition = playerPosition.cpy().add(directionToPlayer.scl(2));
 
         Vector2 interceptDirection = blockPosition.cpy().sub(position).nor();
         velocity.set(interceptDirection).scl(speed);
