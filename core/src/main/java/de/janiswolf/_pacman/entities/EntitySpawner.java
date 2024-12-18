@@ -79,7 +79,7 @@ public class EntitySpawner {
                 return player1;
 
             case SPEED_GHOST:
-                speed = 2.0f;
+                speed = 1.7f;
                 texture = entity4Texture;
                 break;
 
