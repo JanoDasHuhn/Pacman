@@ -36,10 +36,10 @@ public class Main extends ApplicationAdapter {
         gridWorld.createGrid(worldSize, worldSize);
         entitySpawner = new EntitySpawner(gridWorld,this,1,0.2f);
         entitySpawner.create(EntityType.PLAYER);
-        entitySpawner.create(EntityType.GHOST);
-        entitySpawner.create(EntityType.SPEED_GHOST);
-        entitySpawner.create(EntityType.NO_COLLISION_GHOST);
-        entitySpawner.create(EntityType.GHOST_INTERCEPTOR);
+        entitySpawner.create(EntityType.DOG);
+        entitySpawner.create(EntityType.SPEED_DOG);
+        entitySpawner.create(EntityType.NO_COLLISION_DOG);
+        entitySpawner.create(EntityType.DOG_INTERCEPTOR);
 
         camera = new OrthographicCamera(player.getPosition().x,player.getPosition().y);
         viewport = new FitViewport(25, 25,camera);
@@ -96,8 +96,8 @@ public class Main extends ApplicationAdapter {
         for(Entity entity : entitySpawner.getEntities() ){
             if(!(entity instanceof Player)){
                 entityBounds.add(entity.getSprite().getBoundingRectangle());
-               Ghost ghost = (Ghost) entity;
-               ghost.update();
+               Dog dog = (Dog) entity;
+               dog.update();
             }else {
                 playerBounds = entity.getSprite().getBoundingRectangle();
                 player = (Player) entity;

@@ -78,17 +78,17 @@ public class EntitySpawner {
                 entities.add(player1);
                 return player1;
 
-            case SPEED_GHOST:
+            case SPEED_DOG:
                 speed = 1.7f;
                 texture = entity4Texture;
                 break;
 
-            case GHOST_INTERCEPTOR:
+            case DOG_INTERCEPTOR:
                 isInterceptor = true;
                 texture = entity3Texture;
                 break;
 
-            case NO_COLLISION_GHOST:
+            case NO_COLLISION_DOG:
                 isCollider = false;
                 texture = entity2Texture;
                 break;
@@ -97,9 +97,9 @@ public class EntitySpawner {
                 break;
         }
 
-        Ghost ghost = new Ghost(texture, startX, startY, 0.05f, 1, main.getPlayer(), isInterceptor, gridWorld, isCollider);
-        entities.add(ghost);
-        return ghost;
+        Dog dog = new Dog(texture, startX, startY, 0.05f, 1, main.getPlayer(), isInterceptor, gridWorld, isCollider);
+        entities.add(dog);
+        return dog;
     }
 
 

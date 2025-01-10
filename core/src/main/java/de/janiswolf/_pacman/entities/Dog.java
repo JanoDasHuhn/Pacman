@@ -1,19 +1,15 @@
 package de.janiswolf._pacman.entities;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import de.janiswolf._pacman.GridWorld;
 
-import java.util.Random;
-
-public class Ghost extends Entity {
+public class Dog extends Entity {
 
     private Player player;
     private boolean isInterceptor, isCollider;
 
-    public Ghost(Texture texture, float startX, float startY, float speed, int health, Player player, boolean isInterceptor, GridWorld gridWorld, boolean checkCollision) {
+    public Dog(Texture texture, float startX, float startY, float speed, int health, Player player, boolean isInterceptor, GridWorld gridWorld, boolean checkCollision) {
         super(texture, startX, startY, speed, health, gridWorld);
         this.player = player;
         this.isInterceptor = isInterceptor;
