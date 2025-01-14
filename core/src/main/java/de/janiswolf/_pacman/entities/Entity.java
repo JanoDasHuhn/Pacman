@@ -22,7 +22,7 @@ public abstract class Entity {
         this.velocity = new Vector2(0, 0);
         this.speed = speed;
         this.sprite.setPosition(startX, startY);
-        this.sprite.setSize(1, 1);
+        this.sprite.setSize(2, 2);
         this.health = health;
         this.startX = startX;
         this.startY = startY;

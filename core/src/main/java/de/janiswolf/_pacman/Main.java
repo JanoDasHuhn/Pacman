@@ -2,6 +2,8 @@ package de.janiswolf._pacman;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +19,7 @@ import de.janiswolf._pacman.entities.*;
 import java.util.ArrayList;
 
 public class Main extends ApplicationAdapter {
-    Texture backgroundTexture, entityTexture, entity2Texture, playerTexture, deathScreenTexture;
+    Texture backgroundTexture, playerTexture, deathScreenTexture;
     SpriteBatch spriteBatch;
     FitViewport viewport;
     int worldSize = 100;
@@ -45,9 +47,10 @@ public class Main extends ApplicationAdapter {
         entitySpawner.create(EntityType.DOG_INTERCEPTOR);
 
         camera = new OrthographicCamera(player.getPosition().x, player.getPosition().y);
-        viewport = new FitViewport(25, 25, camera);
+        viewport = new FitViewport(40, 25, camera);
 
         gameOver = false;  // Initially, the game is not over
+
     }
 
     @Override
@@ -72,6 +75,14 @@ public class Main extends ApplicationAdapter {
     }
 
     private void input() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            if (Gdx.graphics.isFullscreen()) {
+                Gdx.graphics.setWindowedMode(800, 600); // Replace with desired windowed dimensions
+            } else {
+                Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+                Gdx.graphics.setFullscreenMode(displayMode);
+            }
+        }
         if (!gameOver) {
             for (Entity entity : entitySpawner.getEntities()) {
                 if (entity instanceof Player) {
